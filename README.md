@@ -1,6 +1,6 @@
 ![](./src/logo.png)
 
-## Thema 
+## Thema 🎯
 
 #### Welche Rolle spielt Cyber-Sicherheit in der vernetzten Fabrik?
 
@@ -34,13 +34,13 @@ tbd
 
 tbd
 
-## Sponsored by
+## Sponsored by 🚀
 
 [![name](./src/csw.png)](https://www.campus-schwarzwald.de)
 
 [![name](./src/keyfactor.png)](https://www.keyfactor.com)
 
-Wichtige Daten:
+## Wichtige Daten 🗓
 
  * [Anmeldung]() bis zum 15. Juni
 
@@ -51,8 +51,15 @@ Wichtige Daten:
     * Hackathon **Pitch** - 16 Uhr
 
     * **Beer & Burger** - 17:30 Uhr
+   
+### Location 🏫
 
-### Euer Mehrwert
+**Campus Schwarzwald**<br/>
+(Centrum für Digitalisierung, Führung und Nachhaltigkeit Schwarzwald gGmbH) 
+Herzog-Eberhard-Straße 56<br/>
+72250 Freudenstadt<br/>
+
+### Euer Mehrwert 👍
 
 * Arbeitet gemeinsamen an Lösungen
 
@@ -64,7 +71,7 @@ Wichtige Daten:
 
 * "Hack the Fab" Shirt
 
-### Teilnahme
+### Teilnahme 🙋‍♂️🙋‍♀️
 
 Auch wenn es bei Hackathons darum geht, Probleme mit Technologie zu lösen, sind an den erfolgreichsten Projekten immer Personen mit unterschiedlichen Begabungen und Jobs beteiligt.
 
@@ -75,24 +82,20 @@ Um den perfekten Mix zu erreichen sollte euer Team eine Mischung aus folgenden P
 2. **Innovator**: Projektowner, Projektmanager die Ideen überprüfen und die Herausforderung formulieren
 
 
-## Bewertungskriterien
+## Bewertungskriterien 🏆
 
-### Ergebnis [60%]
+Die Teams sollten sich bemühen, innerhalb der vorgegebenen Zeit eine möglichst vollständige und schlanke Version ihres Projekts zu erstellen. Ihre Leistung wird nach den folgenden Hauptkriterien beurteilt:
+
+ + Technische Schwierigkeit
+
+ + Kreativität und Originalität
+
+ + Nützlichkeit und Geschäftspotenzial
+
+ + Qualität der Präsentation
 
 
-### Kreativität [20%]
+_____________
 
- * Der Ansatz **unterscheidet** sich deutlich von anderen Einreichungen
-
- * Das Team beweist **Kreativität** bei der Lösung des Problems
-
- * **Einsatz von geeigneter Software** zur Unterstützung der Problemlösung
-
-### Präsentation [20%]
-
- * Titel, Überschriften, Beschriftungen: Angemessene Größe, Position, Rechtschreibung und Inhalt
-
- * Teamarbeit bei der Umsetzung
-
- * Struktur und Verständlichkeit
+🎉 🎊 😃 Happy Contributing 😃 🎊 🎉
     
