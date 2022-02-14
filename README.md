@@ -55,7 +55,7 @@ tbd
 ### Location 🏫
 
 **Campus Schwarzwald**<br/>
-(Centrum für Digitalisierung, Führung und Nachhaltigkeit Schwarzwald gGmbH) 
+(Centrum für Digitalisierung, Führung und Nachhaltigkeit Schwarzwald gGmbH)<br/>
 Herzog-Eberhard-Straße 56<br/>
 72250 Freudenstadt<br/>
 
@@ -81,6 +81,7 @@ Um den perfekten Mix zu erreichen sollte euer Team eine Mischung aus folgenden P
 
 2. **Innovator**: Projektowner, Projektmanager die Ideen überprüfen und die Herausforderung formulieren
 
+**Die Teilnahme am Hackathon ist kostenlos**
 
 ## Bewertungskriterien 🏆
 
