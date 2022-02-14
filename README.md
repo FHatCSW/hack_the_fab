@@ -62,7 +62,7 @@ Wichtige Daten:
 
 * Netzwerkt mit Firmen und gleichgesinnten
 
-* "Kack the Fab" Shirt
+* "Hack the Fab" Shirt
 
 ### Teilnahme
 
