@@ -1,6 +1,4 @@
-![](./src/logo.png)
-
-## Thema 🎯
+![](./src/HACK THE FAB-2.png)
 
 #### Welche Rolle spielt Cyber-Sicherheit in der vernetzten Fabrik?
 
@@ -26,19 +24,42 @@ Genau deshalb braucht es kreative und praktikable Lösungen.
 
 An unserem Hackahon wollen wir in Teams die Herausforderung Cyber-Security verstehen und Lösungen entwickeln.
 
-### Challenge 1
+![](./src/microfab.png)
 
-tbd
+Die **MICRO FAB** ist eine kleine Fabrik, an der wir OT-Security am Hackathon sehen und verstehen.
 
-### Challenge 2
+Die Fabrik besteht aus **drei Maschinen** die durch ESP32 Mikrocontroller simuliert werden, sowie einem **Leitrechner**, der (Raspberry Pi) der die Daten die auf den Maschinen generiert werden, aggregiert.
 
-tbd
+Alle Komponenten sind über einen WLAN Router vernetzt. 
 
-## Sponsored by 🚀
+![](./src/microfab_detail.png)
 
-[![name](./src/csw.png)](https://www.campus-schwarzwald.de)
+![](./src/concept_challenge_.png)
 
-[![name](./src/keyfactor.png)](https://www.keyfactor.com)
+![](./src/coder_challenge_.png)
+
+In der **MICRO FAB** gibt es eine Amgreifer der versucht Daten aus unserer Fabrik zu stehlen.
+
+Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern und eine Autorisiweung aller Komponenten in der Fabrik zu ermöglichen.
+
+### Details
+
++ Die von den Maschinen (Client) generierten Daten werden über **MQTT oder OPC UA** an den Leitrechner (Server) gesendet.
+
+   + Die Daten werden anschließnd in einer MySQL Datenbank gespeichert
+   
+   + 
+   
++ Die **Kommunikation ist aktuell unverschlüsselt** und es gibt keine sichere Authentisierung
+
++ OPC UA und MQTT bieten verschiedene Mechanismen für eine sichere Authentisierung und Verschlüsselung. 
+
++ Welche Mechanismen ihr testet und implementiert ist **euch überlassen**
+
+
+![](./src/sponsors.png)
+
+![](./src/sponsors_detail.png)
 
 ## Wichtige Daten 🗓
 
@@ -52,7 +73,7 @@ tbd
 
     * **Beer & Burger** - 17:30 Uhr
    
-### Location 🏫
+![](./src/location.png)
 
 **Campus Schwarzwald**<br/>
 (Centrum für Digitalisierung, Führung und Nachhaltigkeit Schwarzwald gGmbH)<br/>
@@ -71,7 +92,7 @@ Herzog-Eberhard-Straße 56<br/>
 
 * "Hack the Fab" Shirt
 
-### Teilnahme 🙋‍♂️🙋‍♀️
+![](./src/teilnahme.png)
 
 Auch wenn es bei Hackathons darum geht, Probleme mit Technologie zu lösen, sind an den erfolgreichsten Projekten immer Personen mit unterschiedlichen Begabungen und Jobs beteiligt.
 
@@ -83,7 +104,7 @@ Um den perfekten Mix zu erreichen sollte euer Team eine Mischung aus folgenden P
 
 **Die Teilnahme am Hackathon ist kostenlos**
 
-## Bewertungskriterien 🏆
+![](./src/bewertung.png)
 
 Die Teams sollten sich bemühen, innerhalb der vorgegebenen Zeit eine möglichst vollständige und schlanke Version ihres Projekts zu erstellen. Ihre Leistung wird nach den folgenden Hauptkriterien beurteilt:
 
