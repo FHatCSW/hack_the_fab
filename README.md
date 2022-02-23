@@ -48,7 +48,7 @@ Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern u
 
    + Die Daten werden anschließnd in einer MySQL Datenbank gespeichert
    
-   + 
+   + Im Leitstand wird ein Dashboard gehostet (Flask) das die gespeicherten Daten visualisiert
    
 + Die **Kommunikation ist aktuell unverschlüsselt** und es gibt keine sichere Authentisierung
 
