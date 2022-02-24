@@ -36,21 +36,21 @@ Alle Komponenten sind über einen WLAN Router vernetzt.
 
 ![](./src/concept_challenge_.png)
 
+IT-Welt: Netzwerksicherheit / Embedded Security
+OT-Welt: OT-Security / Product Security / Embedded Cyber Security
+
 Ideen:
 
 + Warum ist Sicherheit in der vernetzten Produktion wichtig?
-    
     + Was gilt es zu schützen?
-        
     + 
     
 + Warum können viele Lösungen aus dem IT-Umfeld nicht übernommen werden?
-    
     + IT-Welt: CIA-Triad (Confidentiality, Integrity, Availability)
-    
-    + OT-Welt: SRP-Triad (F´´afety, Reliability, Productivity)
+    + OT-Welt: SRP-Triad (Safety, Reliability, Productivity)
     
 + Um welche Elemente können wir die **MICRO FAB** erweitern um die Cyber-Sicherheit zu erhöhen?
+    + Sicherheitstrategie (kurz-, mittel-, langfristig und im Krisenfall) 
     + Mögliche Maßnahmen:
         + Absicherung der Netze
         + Absicherung von Diensten und Protokollen
@@ -60,6 +60,8 @@ Ideen:
         + Schutz vor Schadprogrammen
         + Datensicherung
         + Mobile Datenträger
+    
+
 
 ![](./src/coder_challenge_.png)
 
@@ -97,6 +99,8 @@ Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern u
     * Hackathon **Pitch** - 16 Uhr
 
     * **Beer & Burger** - 17:30 Uhr
+    
+![](./src/ablauf.png)
    
 ![](./src/location.png)
 
