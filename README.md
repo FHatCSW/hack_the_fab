@@ -1,3 +1,5 @@
+![](./src/under_construction.png)
+
 ![](./src/logo.png)
 
 #### Welche Rolle spielt Cyber-Sicherheit in der vernetzten Fabrik?
@@ -36,52 +38,23 @@ Alle Komponenten sind über einen WLAN Router vernetzt.
 
 ![](./src/concept_challenge_.png)
 
-IT-Welt: Netzwerksicherheit / Embedded Security
-OT-Welt: OT-Security / Product Security / Embedded Cyber Security
+Die **CONCEPT CHALLENGE** hat das Ziel Antworten auf konzeptionelle Fragn der Cyber-Sicherheit in Fabriken zu beantworten.
 
-Ideen:
+Ihr könnt euch zwischen einer der folgenden Fragestellungen entscheiden:
 
-+ Warum ist Sicherheit in der vernetzten Produktion wichtig?
-    + Was gilt es zu schützen?
-    + 
+1. Warum ist Sicherheit in der vernetzten Produktion wichtig?
     
-+ Warum können viele Lösungen aus dem IT-Umfeld nicht übernommen werden?
-    + IT-Welt: CIA-Triad (Confidentiality, Integrity, Availability)
-    + OT-Welt: SRP-Triad (Safety, Reliability, Productivity)
+2. Warum können viele Lösungen aus dem IT-Umfeld nicht übernommen werden?
     
-+ Um welche Elemente können wir die **MICRO FAB** erweitern um die Cyber-Sicherheit zu erhöhen?
-    + Sicherheitstrategie (kurz-, mittel-, langfristig und im Krisenfall) 
-    + Mögliche Maßnahmen:
-        + Absicherung der Netze
-        + Absicherung von Diensten und Protokollen
-        + Härtung der Systeme
-        + Patchmanagement
-        + Authentisierung
-        + Schutz vor Schadprogrammen
-        + Datensicherung
-        + Mobile Datenträger
-    
+3. Um welche Elemente können wir die **MICRO FAB** erweitern um die Cyber-Sicherheit zu erhöhen?
 
+Weitere Informationen und Hilfestellungen findet ihr [hier](concept_challenge.md)
 
 ![](./src/coder_challenge_.png)
 
-In der **MICRO FAB** gibt es eine Amgreifer der versucht Daten aus unserer Fabrik zu stehlen.
+In der **MICRO FAB** gibt es eine Amgreifer der versucht Daten aus unserer Fabrik zu stehlen.  Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern und eine Autorisiweung aller Komponenten in der Fabrik zu ermöglichen.
 
-Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern und eine Autorisiweung aller Komponenten in der Fabrik zu ermöglichen.
-
-### Details
-
-+ Die von den Maschinen (Client) generierten Daten werden über **MQTT oder OPC UA** an den Leitrechner (Server) gesendet.
-
-   + Die Daten werden anschließnd in einer MySQL Datenbank gespeichert
-   
-   + Im Leitstand wird ein Dashboard gehostet (Flask) das die gespeicherten Daten visualisiert
-   
-+ Die **Kommunikation ist aktuell unverschlüsselt** und es gibt keine sichere Authentisierung
-
-+ OPC UA und MQTT bieten verschiedene Mechanismen für eine sichere Authentisierung und Verschlüsselung. Weitere Details zu OPC UA und MQTT findet ihr [hier](protocols.md)
-
-+ Welche Mechanismen ihr testet und implementiert ist **euch überlassen**. 
+Weitere Informationen und Hilfestellungen findet ihr [hier](coder_challenge.md)
 
 
 ![](./src/sponsors.png)
@@ -90,15 +63,15 @@ Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern u
 
 ![](./src/daten.png)
 
- * [Anmeldung]() bis zum 15. Juni
+ * [Anmeldung]() bis zum xx. Juni
 
- * Hackathon - 20. Juli
+ * Hackathon - xx. Juli
   
     * Hackathon **Kick-off** - 9 Uhr
 
     * Hackathon **Pitch** - 16 Uhr
 
-    * **Beer & Burger** - 17:30 Uhr
+    * **Burger & Beer** - 17:30 Uhr
     
 ![](./src/ablauf.png)
    
