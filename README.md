@@ -36,6 +36,31 @@ Alle Komponenten sind über einen WLAN Router vernetzt.
 
 ![](./src/concept_challenge_.png)
 
+Ideen:
+
++ Warum ist Sicherheit in der vernetzten Produktion wichtig?
+    
+    + Was gilt es zu schützen?
+        
+    + 
+    
++ Warum können viele Lösungen aus dem IT-Umfeld nicht übernommen werden?
+    
+    + IT-Welt: CIA-Triad (Confidentiality, Integrity, Availability)
+    
+    + OT-Welt: SRP-Triad (F´´afety, Reliability, Productivity)
+    
++ Um welche Elemente können wir die **MICRO FAB** erweitern um die Cyber-Sicherheit zu erhöhen?
+    + Mögliche Maßnahmen:
+        + Absicherung der Netze
+        + Absicherung von Diensten und Protokollen
+        + Härtung der Systeme
+        + Patchmanagement
+        + Authentisierung
+        + Schutz vor Schadprogrammen
+        + Datensicherung
+        + Mobile Datenträger
+
 ![](./src/coder_challenge_.png)
 
 In der **MICRO FAB** gibt es eine Amgreifer der versucht Daten aus unserer Fabrik zu stehlen.
@@ -98,9 +123,9 @@ Auch wenn es bei Hackathons darum geht, Probleme mit Technologie zu lösen, sind
 
 Um den perfekten Mix zu erreichen sollte euer Team eine Mischung aus folgenden Personen haben:
 
-1. **Coder**: Techniker, Entwickler, Ingenieure die Kenntnisse in vielen verschiedenen technischen Bereichen mitbringen
+1. Techniker, Entwickler, Ingenieure die Kenntnisse in vielen verschiedenen technischen Bereichen mitbringen
 
-2. **Innovator**: Projektowner, Projektmanager die Ideen überprüfen und die Herausforderung formulieren
+2. Projektowner, Projektmanager die Ideen überprüfen und die Herausforderung formulieren
 
 **Die Teilnahme am Hackathon ist kostenlos**
 
