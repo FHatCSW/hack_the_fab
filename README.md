@@ -1,4 +1,4 @@
-![](./src/HACK THE FAB-2.png)
+![](./src/logo.png)
 
 #### Welche Rolle spielt Cyber-Sicherheit in der vernetzten Fabrik?
 
@@ -52,16 +52,16 @@ Ziel der **CODER CHALLENGE** ist es den unverschlüsselten Verkehr abzusichern u
    
 + Die **Kommunikation ist aktuell unverschlüsselt** und es gibt keine sichere Authentisierung
 
-+ OPC UA und MQTT bieten verschiedene Mechanismen für eine sichere Authentisierung und Verschlüsselung. 
++ OPC UA und MQTT bieten verschiedene Mechanismen für eine sichere Authentisierung und Verschlüsselung. Weitere Details zu OPC UA und MQTT findet ihr [hier](protocols.md)
 
-+ Welche Mechanismen ihr testet und implementiert ist **euch überlassen**
++ Welche Mechanismen ihr testet und implementiert ist **euch überlassen**. 
 
 
 ![](./src/sponsors.png)
 
 ![](./src/sponsors_detail.png)
 
-## Wichtige Daten 🗓
+![](./src/daten.png)
 
  * [Anmeldung]() bis zum 15. Juni
 
@@ -119,5 +119,5 @@ Die Teams sollten sich bemühen, innerhalb der vorgegebenen Zeit eine möglichst
 
 _____________
 
-🎉 🎊 😃 Happy Contributing 😃 🎊 🎉
+![](./src/happy_contributing.png)
     
