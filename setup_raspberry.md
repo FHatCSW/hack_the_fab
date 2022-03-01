@@ -11,11 +11,6 @@
         ``` bash
         rfkill unblock 0
         ```
-    - Add new user & password
-        ``` bash
-        sudo useradd -m mikrofab_user_pi -G sudo
-	    sudo passwd mikrofab_user_pi
-        ```
     - Change Hostname
         ``` bash
         sudo raspi-config
@@ -26,12 +21,7 @@
         ```
     - Login via ssh
         ``` bash
-        ssh mikrofab_user_pi@MikrofabControl.local
-        ```
-    - Delete pi user:
-        ``` bash
-        sudo deluser -f pi
-        sudo rm -Rf /home/pi
+        ssh pi@MikrofabControl.local
         ```
       
 - Configure WiFi:
@@ -73,20 +63,17 @@
         ```
 - Update & Upgrade
     ```bash
-    sudo apt-get update && sudo apt-get upgrade
+    sudo apt-get update
+    sudo apt-get upgrade
     ```
 - Install Docker
     ```bash
-    curl -sSL https://get.docker.com | sh
+    sudo curl -fsSL https://get.docker.com | sh
     ```
 - Add a Non-Root User to the Docker Group
     - Add users to the Docker group
         ```bash
-        sudo usermod -aG docker [user_name]
-        ```
-    - Add permissions to the current user
-        ```bash
-        sudo usermod -aG docker ${USER}
+        sudo usermod -aG docker pi
         ```
     - Check if running
         ```bash
@@ -105,104 +92,201 @@
     sudo reboot
     ```
   
-- Install and configure Mosquitto:
-
-    - Download and install
-        ``` bash
-        sudo docker pull eclipse-mosquitto
-        ```
-    - Start the Mosquitto broker
-        ``` bash
-        sudo docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
-        ```
+- Configure Docker:
   
-- Install and configure InfluxDB
-
-    - Download and install
-        ```bash
-        sudo docker pull influxdb
-        ``
+    - Create folders:
+        ``` bash
+        sudo mkdir -p $HOME/docker
+        sudo mkdir -p $HOME/docker/grafana
+        sudo mkdir -p $HOME/docker/mosquitto
+        sudo mkdir -p $HOME/docker/telegraf
+        ```
+    - [hint](https://blog.anoff.io/2020-12-run-influx-on-raspi-docker-compose/)
+        ``` bash
+        docker run --rm arm32v7/influxdb influxd config > influxdb.conf
+        ```
+    - Create Mosquitto config [bugfix](https://it-obey.com/index.php/connecting-telegraf-to-mosquitto-with-influxdb/)
+        - Create mosquitto.conf
+            ``` bash
+            sudo nano $HOME/docker/mosquitto/mosquitto.conf
+            ```
+        - Insert code
+            ``` bash
+            persistence true
+            persistence_location /mosquitto/data/
+            log_dest file /mosquitto/log/mosquitto.log
+            listener 1883
+            allow_anonymous true
+            ```
+      
+    - Docker compose configuration
+        - Create docker-compose.yml
   
-    - Start InfluxDB
-        ``` bash
-        sudo docker run -d -p 8086:8086 
-        ```
-    - The database will be started as daemon and the data will be stored in /var/lib/influxdb
-    
-    - Create Database and user
-    
-        - Start InfluxDB CLI
             ``` bash
-            docker exec -it influxdb influx
+            sudo nano $HOME/docker/docker-compose.yml
             ```
-            - Create Database machines
-                ``` bash
-                create database sensors
-                ```
-            - Create username & password
-                ``` bash
-                create user "telegraf" with password "telegraf"
-                ```
-            - Give user telegraf access to the database
-                ``` bash
-                grant all on sensors to telegraf
-                ```
-- Install and configure Telegraf
-
-    - Download and install
-        ``` bash
-        sudo docker pull telegraf
-        ```
-      
-    - Configuration (Create default)
-        ``` bash
-        sudo docker run --rm telegraf telegraf config > telegraf.conf
-        ```
-      
-    - Change configuration
-        - Open configuration
+  
+        - Add config
+  
             ``` bash
-            nano telegraf.conf
+            version: '3'
+            services:
+              mosquitto:
+                image: 'eclipse-mosquitto:latest'
+                container_name: mosquitto
+                ports:
+                  - '1883:1883'
+                volumes:
+                  - /home/pi/docker/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+                  - /home/pi/docker/mosquitto/data/:/mosquitto/data/
+                  - /home/pi/docker/mosquitto/log/:/mosquitto/log/
+            
+              influxdb:
+                image: arm32v7/influxdb:latest
+                ports:
+                  - '8086:8086'
+                volumes:
+                  - 'vol_influxdb:/var/lib/influxdb'
+                environment:
+                  - INFLUXDB_DB=telegraf
+                  - INFLUXDB_ADMIN_USER=admin
+                  - INFLUXDB_ADMIN_PASSWORD=admin
+            
+              telegraf:
+                image: 'telegraf:latest'
+                volumes:
+                  - '/home/pi/docker/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf'
+                environment:
+                  - INFLUXDB_ADMIN_USER=admin
+                  - INFLUXDB_ADMIN_PASSWORD=admin
+                depends_on:
+                  - influxdb
+                links:
+                  - influxdb
+                ports:
+                  - '8125:8125'
+          
+              grafana:
+                image: 'grafana/grafana:latest'
+                ports:
+                  - '3000:3000'
+                volumes:
+                  - '/home/pi/docker/grafana/grafana.ini:/etc/grafana/grafana.ini'
+                  - 'vol_grafana_var:/var/lib/grafana'
+                  - 'vol_grafana_etc:/etc/grafana/'
+                depends_on:
+                  - influxdb
+                environment:
+                  - GF_SECURITY_ADMIN_USER=admin
+                  - GF_SECURITY_ADMIN_PASSWORD=admin
+            
+              iobroker:
+                image: 'buanet/iobroker:latest'
+                ports:
+                  - '8081:8081'
+                  - '8082:8082'
+                volumes:
+                  - 'vol_iobroker:/opt/iobroker'
+            
+            volumes:
+              vol_influxdb:
+              vol_telegraf:
+              vol_grafana_var:
+              vol_grafana_etc:
+              vol_iobroker:
             ```
-        - Change telegraf configuration
+    - Create Telegraf config:
+        ``` bash
+        cd $HOME/docker
+        sudo docker run --rm telegraf telegraf config > ./telegraf/telegraf.conf
+        ```
+    - Create Grafana config:
+        ``` bash
+        docker run --rm --entrypoint /bin/bash grafana/grafana:latest -c 'cat $GF_PATHS_CONFIG' > grafana.ini
+        sudo docker cp grafana:/etc/grafana/grafana.ini ./grafana/
+        ```
+    - Start containers:
+        ``` bash
+        sudo docker-compose up -d
+        ```
+    - See active containers:
+        ``` bash
+        sudo docker ps
+        ```
+    - Test MQTT
+        - Install paho-mqtt
             ``` bash
-            servers = ["tcp://raspberry_pi_ip:1883"]
-            topics = [
-              "sensors"
-            ]
-            data_format = "influx"
-            ```     
-        - Change output configuration
+            pip3 install paho-mqtt
+            ```
+        - Create python script
             ``` bash
-            urls = ["http://raspberry_pi_ip:8086"]
-            database = "sensors"
-            skip_database_creation = true
-            username = "telegraf"
-            password = "telegraf"
+            nano ping.py
+            ```
+        - Add code:
+            ``` bash
+            import subprocess
+            import re
+            import paho.mqtt.client as mqtt
+            import json
+            import time
+              
+            
+            client = mqtt.Client()
+            client.connect("localhost", 1883, 60)
+              
+            data = {}
+            
+            while True:
+                for host in ["192.168.88.1"]:
+                    try:
+                        x = str(subprocess.Popen(
+                            ["ping", "-c", "1", host], stdout=subprocess.PIPE).communicate()[0])
+                        m = re.search(
+                            "\d* bytes from (.*?): icmp_seq=\d* ttl=\d* time=(\d*\.?\d*) ms", x)
+                        data[host] = {
+                            "addr": m.group(1),
+                            "duration": float(m.group(2))
+                        }
+                    except:
+                        pass
+              
+                print(data)
+                client.publish(topic="test/ping", payload=json.dumps(data))
+                time.sleep(10)
             ```
           
-    - Run Telegraf
+    - Restart Docker
         ``` bash
-         sudo docker run  -v /home/pi/:/etc/telegraf:ro telegraf
+        sudo docker-compose down
+        sudo docker-compose up -d
         ```
+    - Start Python ping.py
+        ``` bash
+        python ping.py &
+        ```
+        - Stop it :)
+            ```bash
+            # List processes
+            ps
+            # kill process
+            sudo kill -9 <pid>
+            ```
       
-- Install and configure Grafana
-
-    - Download and install
-        ``` bash
-        sudo docker pull grafana/grafana
-        ```
-      
-- Test Connection between Telegraf, InfluxDB and Mosquitto
-    - Publish
-        ``` curl
-        curl -d 75 mqtt://example.com/home/bedroom/dimmer
-        ```
-    - Check Database
-        ``` bash
-        sudo docker exec -it influxdb influx
-        ```
+- Configure Grafana
+    - Add a database
+        - Go to ```http://192.168.88.100:3000/login```
+        - Login with ```admin:admin``
+        - Change password
+        - Go to Configuration -> Data Sources
+        - Add Data Source -> InfluxDB
+        - Define Server URL: http://influxdb:8086
+        - Define Database (InfluxDb Details)
+        - Safe & test
+    - Create a dashboard
+        - Go to Create -> Dashboard -> Add new panel
+        - Select Data source: InfluxDB
+        - FROM autogen mqtt_consumer WHERE topic = test/ping SELECT field(192.168.88.1_duration)
+    
     
 Sources:
-
-https://www.eydam-prototyping.com/2021/01/09/smart-home-zentrale-mit-dem-raspberry-pi/
+- https://www.eydam-prototyping.com/2021/01/09/smart-home-zentrale-mit-dem-raspberry-pi/
