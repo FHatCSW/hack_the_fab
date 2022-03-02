@@ -195,6 +195,11 @@
               vol_grafana_etc:
               vol_iobroker:
             ```
+    
+    - Other usefull Docker commands:
+        - Get latest logs: ``` docker container logs -f --since 30m telegraf```
+        - 
+
     - Create Telegraf config:
         ``` bash
         cd $HOME/docker
