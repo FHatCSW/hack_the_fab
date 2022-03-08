@@ -100,6 +100,7 @@
         sudo mkdir -p $HOME/docker/grafana
         sudo mkdir -p $HOME/docker/mosquitto
         sudo mkdir -p $HOME/docker/telegraf
+        sudo mkdir -p $HOME/docker/influxdb
         ```
     - [hint](https://blog.anoff.io/2020-12-run-influx-on-raspi-docker-compose/)
         ``` bash
@@ -205,6 +206,23 @@
         cd $HOME/docker
         sudo docker run --rm telegraf telegraf config > ./telegraf/telegraf.conf
         ```
+        - Change telegraf.conf
+            ``` bash
+            [[outputs.influxdb]]
+
+              urls = ["http://influxdb:8086"]
+            
+              database = "telegraf"
+            
+            [[inputs.mqtt_consumer]]
+              servers = ["tcp://mosquitto:1883"]
+            
+              topics = [
+              "test/#"
+              ] 
+            
+              data_format = "json"
+            ```
     - Create Grafana config:
         ``` bash
         docker run --rm --entrypoint /bin/bash grafana/grafana:latest -c 'cat $GF_PATHS_CONFIG' > grafana.ini

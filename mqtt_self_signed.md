@@ -36,16 +36,10 @@
            openssl x509 -req -sha256 -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 365
         }
         
-        function copy_keys_to_broker () {
-           sudo cp ca.crt /etc/mosquitto/certs/
-           sudo cp server.crt /etc/mosquitto/certs/
-           sudo cp server.key /etc/mosquitto/certs/
-        }
-        
         generate_CA
         generate_server
         generate_client
-        copy_keys_to_broker
+        
         ```
     - save it to a file ```sudo nano create-certs.sh```and execute it ``` bash create-certs.sh```
     - The self signed certificates will be created
@@ -59,9 +53,9 @@
                     ``` bash
                     port 8883
 
-                    cafile /mosquitto/config/certs/ca.crt
-                    certfile /mosquitto/config/certs/server.crt
-                    keyfile /mosquitto/config/certs/server.key
+                    cafile /mosquitto/certs/ca.crt
+                    certfile /mosquitto/certs/server.crt
+                    keyfile /mosquitto/certs/server.key
                     
                     require_certificate true
                     use_identity_as_username true
@@ -81,6 +75,21 @@
                           - /home/pi/docker/mosquitto/log/:/mosquitto/log/
                           - /home/pi/docker/mosquitto/certs/:/mosquitto/certs/
                     ```
+    - Modify telegraf.conf
+        - Open file 
+            ``` bash
+            sudo nano /home/pi/docker/telegraf/telegraf.conf
+            ```          
+        - Modify MQTT config
+            ``` bash
+            [[inputs.mqtt_consumer]]
+              servers = ["tcp://mosquitto:8883"]
+          
+            ## Optional TLS Config
+              tls_ca = "/etc/mosquitto/certs/ca.crt"
+              tls_cert = "/etc/mosquitto/certs/server.crt"
+              tls_key = "/etc/mosquitto/certs/server.key"
+            ```
     - Copy the certs to your local machine:
         - Make sure pi owns the certs (On Raspberry Pi):
             ``` bash
@@ -88,15 +97,59 @@
             ```
         - On you Laptop: Copy the files to a local folder ~/tmp_pi_certs
             ``` bash
-            scp -r pi@MikrofabControl.local:/home/pi/docker/mosquitto/certs ~/tmp_pi_certs
+            scp -r pi@MikrofabControl.local:/home/pi/docker/mosquitto/certs /Users/florianhandke/Downloads/certs
             ```
-    - Transfer the following files to the ESP32 (following the instructions in [setup_esp.md](setup_esp.md))
+    - Restart Docker
+        ``` bash
+        sudo docker-compose down
+        sudo docker-compose up -d
+        ```
+    - Transfer the following files to the ESP32 (following the instructions in [setup_esp.md](esp/setup_esp.md))
         - client.crt
         - client.key
         - ca.crt
+    
+
+## Check success
+
+- Test if everything works
+    - On your latop terminal
+        ``` bash
+        mosquitto_pub -h 192.168.88.100 -t test/florian --cafile ca.crt --cert client.crt --key client.key -m "hello world" -p 8883
+        ```
+        - Everything ok
+            - Client
+                ``` bash
+                Client null sending CONNECT
+                Client null received CONNACK (0)
+                Client null sending PUBLISH (d0, q0, r0, m1, 'test/florian', ... (11 bytes))
+                Client null sending DISCONNECT
+                ```
+            - Mosquitto Broker
+                ``` bash
+                1646638776: New connection from 192.168.88.253:54911 on port 8883.
+                1646638776: New client connected from 192.168.88.253:54911 as auto-AC30ECCC-6A32-C5D5-D384-E959C58BD629 (p2, c1, k60, u'192.168.88.100').
+                1646638776: Client auto-AC30ECCC-6A32-C5D5-D384-E959C58BD629 disconnected.
+                ```
+        - Something went wrong
+            - Client
+                ``` bash
+                Client null sending CONNECT
+                OpenSSL Error[0]: error:1416F086:SSL routines:tls_process_server_certificate:certificate verify failed
+                Error: A TLS error occurred.
+                ```
+            - Mosquitto Broker
+                ``` bash
+                1646638715: New connection from 192.168.88.253:54875 on port 8883.
+                1646638715: OpenSSL Error[0]: error:1404A3F2:SSL routines:ST_ACCEPT:sslv3 alert unexpected message
+                1646638715: Client <unknown> disconnected: Protocol error.
+                ```
     
 
 - Sources:
     - https://medium.com/himinds/mqtt-broker-with-secure-tls-and-docker-compose-708a6f483c92
     - https://dasraspberrypi.de/transfer-files-raspberry-ssh-3/
     - https://forum.arduino.cc/t/mqtt-and-tls/665171/14
+    - https://gist.github.com/eLement87/133cddc5bd0472daf5cb35a20bfd811e
+    - https://github.com/debsahu/ESP_MQTT_Secure/blob/master/ESP32_MQTT_SSL/Arduino/ESP32_PubSubClient_SSL/ESP32_PubSubClient_SSL.ino
+    - https://www.linuxfixes.com/2021/11/solved-telegraf-connection-to-mosquitto.html

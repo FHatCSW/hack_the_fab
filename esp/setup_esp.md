@@ -21,7 +21,7 @@
     
     - Upload files to the ESP
         - To upload files to the ESP follow [these](https://github.com/me-no-dev/arduino-esp32fs-plugin) instructions
-        - Use-Case: [Upload certificates to the ESP](mqtt_self_signed.md)
+        - Use-Case: [Upload certificates to the ESP](../mqtt_self_signed.md)
             - Create a ```data``` folder in your Arduino sketch folder
             - Inside the ```data``` folder create a new folder called ```keys```  
             - Copy the following files in the ```keys``` folder:

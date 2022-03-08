@@ -93,7 +93,6 @@ void loop() {
   data["temp"].set(random(20, 25));
   data["humid"].set(random(80, 85));
   data["hall"].set(hallRead());
-  data["time"].set(getLocalTimeNTP());
 
   // Output Format
   serializeJson(doc, output);
