@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+    influxdb:
+        image: arm32v7/influxdb:1.8.10
+        container_name: influxdb
+        env_file: selfsigned.env
+        volumes:
+            - ./certs/influxdb:/etc/ssl/influxdb 
+            - influxdb_data:/var/lib/influxdb
+        networks: 
+            - "iotstack"
+
+    mosquitto:
+        image: eclipse-mosquitto:2.0
+        container_name: mosquitto
+        volumes:
+            - ./certs/mqtt:/mosquitto/config/certs
+            - ./mosquitto/config:/mosquitto/config
+            - ./mosquitto/log:/mosquitto/log
+            - ./mosquitto/data:/mosquitto/data
+        user: "${USER_ID}:${GRP_ID}"
+        expose:
+            - 8883
+            - 8884
+        links: 
+            - telegraf
+        restart: always
+        networks: 
+            - "iotstack"
+    
+    telegraf:
+        image: telegraf:1.20
+        container_name: telegraf
+        links: 
+            - influxdb
+        env_file: selfsigned.env
+        volumes:
+            - ./certs/mqtt:/etc/telegraf 
+            - ./telegraf/telegraf.toml:/etc/telegraf/telegraf.conf:ro
+        networks: 
+            - "iotstack"
+    
+    grafana:
+        image: grafana/grafana:8.2.6
+        container_name: grafana
+        env_file: selfsigned.env
+        user: "472"
+        links: 
+            - influxdb
+        volumes: 
+            - grafana_data:/var/lib/grafana
+            - ./certs/grafana:/etc/ssl/certs
+        networks: 
+            - "iotstack"
+
+volumes: 
+    influxdb_data:
+    grafana_data:
+
+networks: 
+    iotstack:
+        external: true
