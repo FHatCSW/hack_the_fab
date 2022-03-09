@@ -5,6 +5,8 @@ services:
         image: arm32v7/influxdb:1.8.10
         container_name: influxdb
         env_file: selfsigned.env
+        ports:
+            - '8086:8086'
         volumes:
             - ./certs/influxdb:/etc/ssl/influxdb 
             - influxdb_data:/var/lib/influxdb
@@ -14,15 +16,15 @@ services:
     mosquitto:
         image: eclipse-mosquitto:2.0
         container_name: mosquitto
+        ports:
+            - '8883:8883'
+            - '8884:8884'
         volumes:
             - ./certs/mqtt:/mosquitto/config/certs
             - ./mosquitto/config:/mosquitto/config
             - ./mosquitto/log:/mosquitto/log
             - ./mosquitto/data:/mosquitto/data
         user: "${USER_ID}:${GRP_ID}"
-        expose:
-            - 8883
-            - 8884
         links: 
             - telegraf
         restart: always
@@ -35,6 +37,8 @@ services:
         links: 
             - influxdb
         env_file: selfsigned.env
+        ports:
+            - '8125:8125'
         volumes:
             - ./certs/mqtt:/etc/telegraf 
             - ./telegraf/telegraf.toml:/etc/telegraf/telegraf.conf:ro
@@ -46,6 +50,8 @@ services:
         container_name: grafana
         env_file: selfsigned.env
         user: "472"
+        ports:
+            - '3000:3000'
         links: 
             - influxdb
         volumes: 

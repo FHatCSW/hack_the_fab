@@ -91,7 +91,6 @@ Grafana container will use the following environment variables to set up an admi
 
 ## Mosquitto Websocket Client using Paho-MQTT-Python
 
-
 ```python
 import paho.mqtt.client as mqtt
 import sys

@@ -10,7 +10,7 @@
     debug = true
     quiet = false
     hostname = ""
-    omit_hostname = true
+    omit_hostname = false
 
 #############################################################
 #                   OUTPUT PLUGINS                          #
