@@ -5,6 +5,8 @@ services:
         image: arm32v7/influxdb:latest
         container_name: influxdb
         env_file: no_auth.env
+        ports:
+            - '8086:8086'
         volumes: 
             - influxdb_data:/var/lib/influxdb
         networks: 
@@ -18,9 +20,9 @@ services:
             - ./mosquitto/log:/mosquitto/log
             - ./mosquitto/data:/mosquitto/data
         user: "${USER_ID}:${GRP_ID}"
-        expose:
-            - 1883
-            - 1884
+        ports:
+            - '1883:1883'
+            - '1884:1884'
         links: 
             - telegraf
         restart: always
@@ -33,6 +35,8 @@ services:
         links: 
             - influxdb
         env_file: no_auth.env
+        ports:
+            - '8125:8125'
         volumes: 
             - ./telegraf/telegraf.toml:/etc/telegraf/telegraf.conf:ro
         networks: 
@@ -42,6 +46,8 @@ services:
         image: grafana/grafana:7.1.0
         container_name: grafana
         env_file: no_auth.env
+        ports:
+            - '3000:3000'
         user: "472"
         links: 
             - influxdb
