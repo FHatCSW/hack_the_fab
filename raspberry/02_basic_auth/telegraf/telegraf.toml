@@ -45,5 +45,4 @@
     username = "${TG_MOSQUITTO_USERNAME}"
     password = "${TG_MOSQUITTO_PASSWORD}"
 
-    # Incoming MQTT Payload from Sensor nodes is in InfluxDB Line Protocol strings
     data_format = "json"

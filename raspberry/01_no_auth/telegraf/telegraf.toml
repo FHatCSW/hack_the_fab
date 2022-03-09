@@ -40,5 +40,4 @@
     # Connection timeout
     connection_timeout = "30s"
 
-    # Incoming MQTT Payload from Sensor nodes is in InfluxDB Line Protocol strings
     data_format = "json"

@@ -13,7 +13,7 @@ services:
             - "iotstack"
 
     mosquitto:
-        image: eclipse-mosquitto:1.6
+        image: eclipse-mosquitto:latest
         container_name: mosquitto
         volumes: 
             - ./mosquitto/config/:/mosquitto/config/
@@ -30,9 +30,11 @@ services:
             - "iotstack"
     
     telegraf:
-        image: telegraf:1.16
+        image: telegraf:latest
         container_name: telegraf
         links: 
+            - influxdb
+        depends_on:
             - influxdb
         env_file: no_auth.env
         ports:
@@ -43,7 +45,7 @@ services:
             - "iotstack"
     
     grafana:
-        image: grafana/grafana:7.1.0
+        image: grafana/grafana:latest
         container_name: grafana
         env_file: no_auth.env
         ports:

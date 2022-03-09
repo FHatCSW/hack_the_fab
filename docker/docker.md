@@ -15,3 +15,7 @@ find all running docker processes
 Shutdown a certain docker compose process:
 
     docker-compose -f docker-compose<...>.yml down
+
+remove a conatiner
+
+    docker rm -f influxdb

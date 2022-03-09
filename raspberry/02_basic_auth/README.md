@@ -20,7 +20,6 @@ However, recent events show that the sole use of user:password carries high risk
 2. Encrypting the Passwords for Mosquitto Broker:
 
     ```bash
-    cd prototype/
     docker run -it --rm -v $(pwd)/mosquitto/config:/mosquitto/config eclipse-mosquitto mosquitto_passwd -U /mosquitto/config/passwd
     ```
 
