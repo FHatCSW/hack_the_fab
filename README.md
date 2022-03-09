@@ -63,9 +63,9 @@ Weitere Informationen und Hilfestellungen findet ihr [hier](coder_challenge.md)
 
 ![](./src/daten.png)
 
- * [Anmeldung]() bis zum xx. Juni
+ * [Anmeldung]() bis zum 10. Juni
 
- * Hackathon - xx. Juli
+ * Hackathon - 20. Juli
   
     * Hackathon **Kick-off** - 9 Uhr
 
@@ -113,8 +113,6 @@ Die Teams sollten sich bemühen, innerhalb der vorgegebenen Zeit eine möglichst
  + Technische Schwierigkeit
 
  + Kreativität und Originalität
-
- + Nützlichkeit und Geschäftspotenzial
 
  + Qualität der Präsentation
 

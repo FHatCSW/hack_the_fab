@@ -1,6 +1,17 @@
 # Basic Auth Concept
 
-## Steps to Bring the Prototype Stack Up
+The use of passwords is still widespread today. 
+However, recent events show that the sole use of user:password carries high risks. Such as:
+
+1. **Social Engineering** attacks such as phishing credentials using fake pages, voice phishing (so-called Vishing), shoulder surfing (e.g. peeping behind a person who is typing their password on a laptop) and even retrieving handwritten passwords from post-it notes.
+2. **Stealing** using specialized software or physical keyloggers. Some of these attacks require a physical presence or proximity to a laptop or a device.
+3. By **intercepting communications**, using fake access points or by leveraging man-in-the-middle attacks (MiTM) at a network level, more prevalent in public WiFis found in hotels, cafés, airports, etc.
+4. **Brute-force** attacks on passwords by trying all the combinations, dictionary attacks or by simply guessing the password.
+5. Retrieving passwords directly from **data breaches** and leveraging them using password spraying techniques to other legitimate services.
+
+[[Enisa](https://www.enisa.europa.eu/news/enisa-news/tips-for-secure-user-authentication)]
+
+## Steps to Bring the Basic Authentication Stack Up
 
 1. Create a network for your stack:
 
@@ -20,6 +31,9 @@
 3. Bring the stack up:
 
         USER_ID="$(id -u)" GRP_ID="$(id -g)" docker-compose -f docker-compose.prototype.yml up -d
+
+4. All files which are needed to setup the ESP32 can be found [here](/esp/02_basic_auth).
+
 
 
 ##  Ports

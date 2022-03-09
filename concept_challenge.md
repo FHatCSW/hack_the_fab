@@ -16,6 +16,7 @@ Hilfestellung:
 + OT-Welt: SRP-Triad (Safety, Reliability, Productivity)
     
 ## 3. Um welche Elemente können wir die **MICRO FAB** erweitern um die Cyber-Sicherheit zu erhöhen?
+
 Hilfestellung:    
 + Sicherheitstrategie (kurz-, mittel-, langfristig und im Krisenfall)
 + Mögliche Maßnahmen:
@@ -27,3 +28,7 @@ Hilfestellung:
     + Schutz vor Schadprogrammen
     + Datensicherung
     + Mobile Datenträger
+  
+______________
+
+english version

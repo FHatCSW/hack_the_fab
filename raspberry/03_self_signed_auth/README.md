@@ -1,7 +1,14 @@
 # Self-Signed Case
-
+      
 The __Self-Signed__ Case generates necessary Certificates in order to provide __TLS__ Security for components. This case
 adds upon the __Basic Auth__ Case by adding more security in addition to basic authentication.
+
+When it comes to self-signed certificates, however, one must always keep in mind:
+
+      Compromised self-signed certificates can pose many security challenges, since attackers can spoof the identity of the victim. 
+      Unlike CA-issued certificates, self-signed certificates cannot be revoked. 
+      The inability to quickly find and revoke private key associated with a self-signed certificate creates serious risk.
+
 
 ## Environment Variables & Configuration Files
 
@@ -12,10 +19,6 @@ The bash script `generate-certs.sh` uses `openssl` to generate:
 2. keys and certificates for InfluxDB, Mosquitto, Mosquitto Clients for Publishing
 
 This requires subjects which has some hard-coded information in the script.
-
-Feel Free to change the `SUBJECT_*` variables' geographical and organizational values in `generate-certs.sh`.
-
-> __NOTE__: _CHANGE_ the `CN` value to your Server's Domain Name if it has one, if not currently it uses the Host IP address using `hostname -I`
 
 ## Steps to Bring the Stack Up
 
@@ -46,9 +49,6 @@ Feel Free to change the `SUBJECT_*` variables' geographical and organizational v
                 ├── ca.crt
                 ├── ca.key
                 ├── ca.srl
-                ├── domain.crt
-                ├── domain.csr
-                ├── domain.key
                 ├── grafana
                 │   ├── ca.crt
                 │   ├── grafana-server.crt
@@ -80,28 +80,16 @@ Feel Free to change the `SUBJECT_*` variables' geographical and organizational v
 
 6. Bring the Stack up:
 
-        USER_ID="$(id -u)" GRP_ID="$(id -g)" docker-compose -f docker-compose.selfsigned.yml up
-    
-    add `-d` flag to detach the stack logs
+        USER_ID="$(id -u)" GRP_ID="$(id -g)" docker-compose -f docker-compose.selfsigned.yml up -d
 
 7. For your MQTT Clients copy the `ca.crt`, `mqtt-client.crt`, and `mqtt-client.key` and add them to your Apps accordingly.
-
-
-## Component Availability behind Reverse-Proxy
-
-|   Component  |  Credentials (username:password)  |                         Endpoint                         |
-|:---------:|:-----------------:|:-----------------------------------------------------------------------------------------------------:|
-| `traefik` | `admin:tiguitto`  | `curl -i --insecure -u admin:tiguitto https://localhost/dashboard/`<br> Browser: `https://<IP_ADDRESS>/dashboard/` |
-| `grafana` | `admin:tiguitto`  | `curl -i --insecure -u admin:tiguitto https://localhost/grafana/api/health`<br> Browser: `https://<IP_ADDRESS>/grafana`       |
-| `influxdb`| `tiguitto:tiguitto` | `curl -i --insecure -u tiguitto:tiguitto https://localhost/influxdb/ping` |
-| `mosquitto` | `{sub,pub}client:tiguitto` | Use an MQTT Client here         |
-    
-    NOTE: use the `--insecure` parameter when querying self-signed certificate server
-
+   
+   All files which are needed to setup the ESP32 can be found [here](/esp/03_self_signed_auth).
 
 ## Publishing with MQTT Clients
 
-You will require all devices or Apps that will publish data to the TIGUITTO Broker to have the `ca.crt` on them along with the user `pubclient`. The certificate will enable SSL/TLS and the authentication will only allow dedicated devices to publish data to the Broker.
+You will require all devices or Apps that will publish data to the Mikrofab Broker to have the `ca.crt` on them along with the user `pubclient`. 
+The certificate will enable SSL/TLS and the authentication will only allow dedicated devices to publish data to the Broker.
 
 ### Typical MQTT Client Configuration
 
@@ -115,9 +103,11 @@ You will require all devices or Apps that will publish data to the TIGUITTO Brok
 | cert | `ca.crt`, `mqtt-client.crt`, `mqtt-client.key`     |
 
 
-## Mosquitto Websocket Client using Paho-MQTT-Python With Certificates
+## Test the Broker using Paho-MQTT-Python 
 
 - if `mosquitto.conf` has `require_certificates true` then the following code will work:
+
+- Define the path to you selfsigned certificates.
 
 ```python
 import ssl

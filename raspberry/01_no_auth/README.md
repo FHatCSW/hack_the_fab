@@ -10,6 +10,9 @@
 
         USER_ID="$(id -u)" GRP_ID="$(id -g)" docker-compose -f docker-compose.prototype.yml up -d
 
+3. All files which are needed to setup the ESP32 can be found [here](/esp/01_no_auth).
+
+
 
 ##  Ports
 
