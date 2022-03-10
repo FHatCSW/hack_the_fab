@@ -1,6 +1,4 @@
 #include <WiFi.h>
-//#include <WiFiClientSecure.h>  //included WiFiClientSecure does not work!
-#include "src/dependencies/WiFiClientSecure/WiFiClientSecure.h" //using older WiFiClientSecure
 #include <time.h>
 #include <PubSubClient.h>
 #include<ArduinoJson.h>
@@ -9,8 +7,8 @@
   const char ssid[] = "Mikrofab_01";
   const char pass[] = "mikrofoo123";
 
-  #define HOSTNAME "192.168.88.100"
-
+  #define HOSTNAME "arduinoClient"
+  IPAddress server(192, 168, 88, 100);
   const char *MQTT_HOST = "192.168.88.100";
   const int MQTT_PORT = 1883;
 
@@ -20,8 +18,17 @@ const char* topic = "test/"; // CHANGE SensorID here!
 char output[128];
 time_t now;
 
-WiFiClientSecure net;
-PubSubClient client(net);
+void receivedCallback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Received [");
+  Serial.print(topic);
+  Serial.print("]: ");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+}
+
+WiFiClient net;
+PubSubClient client(server, 1883, receivedCallback, net);
 
 /*
  * JSON Data Format

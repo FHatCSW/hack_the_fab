@@ -28,7 +28,6 @@ This requires subjects which has some hard-coded information in the script.
 
 2. Encrypting the Passwords for Mosquitto Broker:
     ```bash
-        cd selfsigned/
         docker run -it --rm -v $(pwd)/mosquitto/config:/mosquitto/config eclipse-mosquitto mosquitto_passwd -U /mosquitto/config/passwd
     ```
 
@@ -166,3 +165,27 @@ except KeyboardInterrupt as e:
     sys.exit()
 
 ```
+
+# Grafana Configuration
+
+- Browser login to https://192.168.88.100:3000
+
+   - admin:mikrofoo123
+   - Create Database  
+      - Go to Configuration -> Data Sources
+      - Add Data Source -> InfluxDB
+      - Define Server URL: http://influxdb:8086
+      - in Auth enable
+         - Basic auth
+         - With credentials
+         - Skip TLS Verify
+      - In Basic Auth Details define
+         - admin:mikrofoo123
+      - In InfluxDb details define
+         - Database: edge
+      - Safe & test
+    - Create a dashboard
+      - Go to Create -> Dashboard -> Add new panel
+      - Select Data source: InfluxDB
+      - FROM autogen mqtt_consumer WHERE topic = test/arduinoClient SELECT field(data_hall)
+       

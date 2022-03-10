@@ -24,7 +24,7 @@ SUBJECT_INFLUXDB="/C=DE/ST=BW/L=Freudenstadt/O=CSW/OU=INFLUXDB/CN=${CN}"
 SUBJECT_MQTT_CLIENT="/C=DE/ST=BW/L=Freudenstadt/O=CSW/OU=MQTTCLIENT/CN=${CN}"
 SUBJECT_GRAFANA="/C=DE/ST=BW/L=Freudenstadt/O=CSW/OU=GRAFANA/CN=${CN}"
 
-
+mkdir $(pwd)/$CERTSDIR
 cd $(pwd)/$CERTSDIR
 mkdir mqtt/
 mkdir influxdb/

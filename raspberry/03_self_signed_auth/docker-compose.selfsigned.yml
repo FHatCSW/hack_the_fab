@@ -36,6 +36,8 @@ services:
         container_name: telegraf
         links: 
             - influxdb
+        depends_on:
+            - influxdb
         env_file: selfsigned.env
         ports:
             - '8125:8125'

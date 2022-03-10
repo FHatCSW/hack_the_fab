@@ -9,8 +9,7 @@
   const char pass[] = "mikrofoo123";
 
   #define HOSTNAME "arduinoClient"
-  IPAddress ip(172, 16, 0, 100);
-  IPAddress server(172, 16, 0, 2);
+  IPAddress server(192, 168, 88, 100);
   const char *MQTT_HOST = "192.168.88.100";
   const int MQTT_PORT = 1883;
   const char *MQTT_USER = "pubclient"; // leave blank if no credentials used
