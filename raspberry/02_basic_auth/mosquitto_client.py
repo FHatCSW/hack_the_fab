@@ -28,10 +28,11 @@ mqttc.on_connect = on_connect
 mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 mqttc.on_log = on_log
+mqttc.username_pw_set("subclient", "mikrofoo123")
 
 mqttc.connect(HOST, PORT, 60)
 
-mqttc.subscribe('test/test', 0)
+mqttc.publish('test/test', 0)
 
 try:
         mqttc.loop_forever()

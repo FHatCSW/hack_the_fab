@@ -17,7 +17,19 @@ However, recent events show that the sole use of user:password carries high risk
 
         docker network create iotstack
 
-2. Encrypting the Passwords for Mosquitto Broker:
+2. Create and encrypt the passwords for Mosquitto broker:
+
+   ``` bash
+   docker run -it --rm -v $(pwd)/mosquitto/config:/mosquitto/config eclipse-mosquitto mosquitto_passwd -H sha512 -b /mosquitto/config/passwd pubclient mikrofoo123  
+   ```
+   
+   ``` bash
+   docker run -it --rm -v $(pwd)/mosquitto/config:/mosquitto/config eclipse-mosquitto mosquitto_passwd -H sha512 -b /mosquitto/config/passwd subclient mikrofoo123  
+   ```
+
+> There seems to be an issue with hashing with **sha512-pbkdf2**. Therefore we need to take **sha512**   
+
+2. DEPRECATED: Encrypting the Passwords for Mosquitto Broker (Due to the sha512-pbkdf2 issue not working):
 
     ```bash
     docker run -it --rm -v $(pwd)/mosquitto/config:/mosquitto/config eclipse-mosquitto mosquitto_passwd -U /mosquitto/config/passwd
@@ -29,7 +41,7 @@ However, recent events show that the sole use of user:password carries high risk
 
 3. Bring the stack up:
 
-        USER_ID="$(id -u)" GRP_ID="$(id -g)" docker-compose -f docker-compose.prototype.yml up -d
+        USER_ID="$(id -u)" GRP_ID="$(id -g)" docker-compose -f docker-compose.basic_auth.yml up -d
 
 4. All files which are needed to setup the ESP32 can be found [here](/esp/02_basic_auth).
 
