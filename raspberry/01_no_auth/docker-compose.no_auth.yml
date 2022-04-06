@@ -7,6 +7,7 @@ services:
         env_file: no_auth.env
         ports:
             - '8086:8086'
+        restart: unless-stopped
         volumes: 
             - influxdb_data:/var/lib/influxdb
         networks: 
@@ -25,7 +26,7 @@ services:
             - '1884:1884'
         links: 
             - telegraf
-        restart: always
+        restart: unless-stopped
         networks: 
             - "iotstack"
     
@@ -39,6 +40,7 @@ services:
         env_file: no_auth.env
         ports:
             - '8125:8125'
+        restart: unless-stopped
         volumes: 
             - ./telegraf/telegraf.toml:/etc/telegraf/telegraf.conf:ro
         networks: 
@@ -50,6 +52,7 @@ services:
         env_file: no_auth.env
         ports:
             - '3000:3000'
+        restart: unless-stopped
         user: "472"
         links: 
             - influxdb
@@ -57,6 +60,12 @@ services:
             - grafana_data:/var/lib/grafana
         networks: 
             - "iotstack"
+
+    opcua:
+        image: ghcr.io/umati/sample-server:main
+        ports:
+            - "4840:4840"
+        restart: unless-stopped
 
 volumes: 
     influxdb_data:
